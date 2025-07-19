@@ -3,7 +3,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { themeContext } from './context';
 import spec from './student-chart.json';
-import { IChart, PureRenderer } from '@kanaries/graphic-walker';
+import { Chart, ComputationProvider, IChart, PureRenderer } from '@kanaries/graphic-walker';
 import { useFetch, IDataSource } from './util';
 
 const Welcome: React.FC = () => {
@@ -16,6 +16,9 @@ const Welcome: React.FC = () => {
   return (
     <PageContainer>
       <PureRenderer type="local" rawData={dataSource} visualConfig={chart.config} visualState={chart.encodings} visualLayout={chart.layout} appearance={theme} />
+      <ComputationProvider data={dataSource}>
+        <Chart overrideSize={{ mode: 'full', height: 1, width: 1 }} chart={spec[0] as IChart} appearance={theme} />
+      </ComputationProvider>
     </PageContainer>
   );
 };
